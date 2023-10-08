@@ -9,6 +9,7 @@ import { FaUser } from "react-icons/fa";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { usePathname } from "next/navigation";
+import { useModalAddPost } from "@/context/modalContext";
 
 function MenuSide() {
   return (
@@ -84,25 +85,39 @@ const links = [
 
 const NavTop = () => {
   const pathname = usePathname();
-
+  const { setOpen } = useModalAddPost();
   return (
-    <nav className="sticky top-0 p-4 z-[999] backdrop-blur w-full flex justify-between items-center">
+    <nav className="sticky top-0 p-4 z-[999] backdrop-blur w-full flex justify-between items-center mb-5">
       <div className="md:hidden block"></div>
       <Link href={"/"}>
         <Image src={"/logo-threads.png"} width={40} height={40} alt="Logo" />
       </Link>
       <div className="md:flex hidden gap-10 items-center  font-bold">
-        {links.map((link: any, index: number) => (
-          <Link
-            key={index}
-            href={link.href}
-            className={`text-2xl md:text-3xl md:py-3 md:px-5 p-2 rounded hover:bg-gray-600 ${
-              pathname === link.href ? "text-white" : "text-slate-500"
-            }`}
-          >
-            {link.icon}
-          </Link>
-        ))}
+        {links.map((link: any, index: number) => {
+          if (link.href === "/post")
+            return (
+              <button
+                key={index}
+                className={`text-2xl md:text-3xl md:py-3 md:px-5 p-2 rounded hover:bg-gray-600 ${
+                  pathname === link.href ? "text-white" : "text-slate-500"
+                }`}
+                onClick={() => setOpen(true)}
+              >
+                {link.icon}
+              </button>
+            );
+          return (
+            <Link
+              key={index}
+              href={link.href}
+              className={`text-2xl md:text-3xl md:py-3 md:px-5 p-2 rounded hover:bg-gray-600 ${
+                pathname === link.href ? "text-white" : "text-slate-500"
+              }`}
+            >
+              {link.icon}
+            </Link>
+          );
+        })}
       </div>
       <MenuSide />
     </nav>
