@@ -1,4 +1,5 @@
 "use client";
+import PostsList from "@/components/PostsList";
 import { useModalAddPost } from "@/context/modalContext";
 import Image from "next/image";
 
@@ -28,6 +29,7 @@ export default function Home() {
           </button>
         </div>
       </section>
+      <PostsList />
     </>
   );
 }

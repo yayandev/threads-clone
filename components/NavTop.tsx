@@ -87,7 +87,7 @@ const NavTop = () => {
   const pathname = usePathname();
   const { setOpen } = useModalAddPost();
   return (
-    <nav className="sticky top-0 p-4 z-[999] backdrop-blur w-full flex justify-between items-center mb-5">
+    <nav className="sticky top-0 px-4 py-2 z-[999] md:bg-none bg-[rgb(16,16,16)]  md:backdrop-blur w-full flex justify-between items-center mb-5">
       <div className="md:hidden block"></div>
       <Link href={"/"}>
         <Image src={"/logo-threads.png"} width={40} height={40} alt="Logo" />

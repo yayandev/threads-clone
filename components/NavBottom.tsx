@@ -35,7 +35,7 @@ const NavBottom = () => {
   const { setOpen } = useModalAddPost();
 
   return (
-    <nav className="w-full  fixed bottom-0 p-4 z-[999] backdrop-blur flex justify-between items-center md:hidden">
+    <nav className="w-full  fixed bottom-0 p-4 z-[999] bg-[rgb(16,16,16)] flex justify-between items-center md:hidden">
       {links.map((link: any, index: number) => {
         if (link.href === "/post")
           return (
