@@ -1,9 +1,9 @@
 const Spinner = () => {
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center">
       <img
         className="h-5 w-5"
-        src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif"
+        src="/spinner.gif"
         alt="Spinner"
       />
     </div>
