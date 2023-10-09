@@ -16,6 +16,7 @@ const PageSearch = () => {
         </button>
         <input
           type="text"
+          autoFocus
           className="flex-1 bg-transparent focus:outline-none text-sm text-white"
           placeholder="Search"
         />

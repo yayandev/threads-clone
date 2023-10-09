@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { usePathname } from "next/navigation";
 import { useModalAddPost } from "@/context/modalContext";
-
+import { signOut } from "next-auth/react";
 function MenuSide() {
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -41,18 +41,17 @@ function MenuSide() {
                 Account settings
               </a>
             </Menu.Item>
-            <form method="POST" action="#">
-              <Menu.Item>
-                <button
-                  type="submit"
-                  className={
-                    "block w-full px-4 py-2 text-left text-sm text-white"
-                  }
-                >
-                  Sign out
-                </button>
-              </Menu.Item>
-            </form>
+            <Menu.Item>
+              <button
+                onClick={() => signOut()}
+                type="button"
+                className={
+                  "block w-full px-4 py-2 text-left text-sm text-white"
+                }
+              >
+                Sign out
+              </button>
+            </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>
