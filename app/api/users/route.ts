@@ -1,44 +1,38 @@
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/utils/db";
+import { getToken } from "next-auth/jwt";
 
 export async function GET(req: NextRequest) {
   try {
-    const id = req.nextUrl.searchParams.get("id");
+    const auth = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    if (!id) {
-      const users = await db.user.findMany({
-        select: {
-          id: true,
-          name: true,
-          username: true,
-          image: true,
-        },
-      });
-
+    if (!auth) {
       return NextResponse.json({
-        message: "Success",
-        success: true,
-        data: users,
+        message: "Unauthorized",
+        success: false,
       });
     }
 
-    const user = await db.user.findUnique({
+    const id = auth?.id;
+
+    const users = await db.user.findMany({
       where: {
-        id: id,
+        id: {
+          not: id as string,
+        },
       },
       select: {
         id: true,
         name: true,
         username: true,
         image: true,
-        idImage: true
       },
     });
 
     return NextResponse.json({
       message: "Success",
       success: true,
-      data: user,
+      data: users,
     });
   } catch (error: any) {
     return NextResponse.json({

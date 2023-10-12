@@ -30,6 +30,11 @@ export default function withAuth(
     if (token && authpath.includes(pathname)) {
       return NextResponse.redirect(new URL("/", req.url));
     }
+
+    if (token && pathname === "/profile") {
+      const me = token?.username;
+      return NextResponse.redirect(new URL(`/${me}`, req.url));
+    }
     return middleware(req, next);
   };
 }

@@ -16,7 +16,7 @@ export default function Home() {
       </section>
     );
   }
-  
+
   return (
     <>
       <section className="max-w-xl mx-auto pb-3 border-b border-slate-600 md:block hidden">

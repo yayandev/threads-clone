@@ -19,4 +19,8 @@ model User {
  idImage String @default("default")
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt 
+ followers User[] @relation("UserFollow", fields: [followersId], references: [id])
+ following User[] @relation("UserFollow", fields: [followingId], references: [id])
+ followersId String[] @db.ObjectId
+ followingId String[] @db.ObjectId
 }

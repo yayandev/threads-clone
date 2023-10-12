@@ -2,21 +2,35 @@
 import Image from "next/image";
 import Media from "@/components/Media";
 import { BsInstagram } from "react-icons/bs";
-import { useSession } from "next-auth/react";
 import Spinner from "./Spinner";
+import useSWR from "swr";
+import { fetcher } from "@/utils/swr";
+import { useSession } from "next-auth/react";
 
-const UserProfile = () => {
+const UserProfile = ({ username }: { username: string }) => {
   const { data: session, status } = useSession();
+  const me = session?.user;
 
-  if (status === "loading") {
+  const { data, error, isLoading } = useSWR(`/api/users/${username}`, fetcher);
+
+  if (error) {
+    return (
+      <section className="max-w-xl mx-auto pb-3 space-y-5 p-3 flex justify-center h-[50vh] items-center">
+        <h1>Something went wrong</h1>
+      </section>
+    );
+  }
+
+  if (isLoading || status === "loading") {
     return (
       <section className="max-w-xl mx-auto pb-3 space-y-5 p-3 flex justify-center h-[50vh] items-center">
         <Spinner />
       </section>
     );
   }
-  
-  const user: any = session?.user
+
+  const user = data?.data;
+
   return (
     <section className="max-w-xl mx-auto pb-3 space-y-5 p-3">
       <div className="flex w-full justify-between items-center">
@@ -28,7 +42,7 @@ const UserProfile = () => {
           width={80}
           height={80}
           alt="user"
-          src={`/${user.image}`}
+          src={`/${user?.image}`}
           className="w-[80px] h-[80px] rounded-full"
         />
       </div>

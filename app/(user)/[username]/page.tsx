@@ -5,8 +5,12 @@ export const metadata: Metadata = {
   title: "Profile - Threads",
 };
 
-const PageProfile = () => {
-  return <UserProfile />;
+const PageProfile = ({
+  params: { username },
+}: {
+  params: { username: string };
+}) => {
+  return <UserProfile username={username} />;
 };
 
 export default PageProfile;
