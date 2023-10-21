@@ -1,5 +1,5 @@
-import UserProfile from "@/components/UserProfile";
 import { Metadata } from "next";
+import UserProfile from "@/components/UserProfile";
 
 export const metadata: Metadata = {
   title: "Profile - Threads",

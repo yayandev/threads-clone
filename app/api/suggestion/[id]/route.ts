@@ -1,31 +1,53 @@
 import { NextResponse, NextRequest } from "next/server";
 import { db } from "@/utils/db";
-import { getToken } from "next-auth/jwt";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const auth = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    const id = params.id;
 
-    if (!auth) {
+    if (!id) {
       return NextResponse.json({
-        message: "Unauthorized",
+        message: "Please provide id",
         success: false,
       });
     }
-
-    const id = auth?.id;
 
     const users = await db.user.findMany({
       where: {
         id: {
           not: id as string,
         },
+        OR: [
+          {
+            followers: {
+              none: {
+                id: id as string,
+              },
+            },
+          },
+          {
+            following: {
+              none: {
+                id: id as string,
+              },
+            },
+          },
+        ],
       },
       select: {
         id: true,
         name: true,
         username: true,
         image: true,
+        _count: {
+          select: {
+            followers: true,
+            following: true,
+          },
+        },
       },
     });
 

@@ -1,5 +1,5 @@
+import Suggestion from "@/components/Suggestion";
 import { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Search - Threads",
@@ -21,62 +21,7 @@ const PageSearch = () => {
           placeholder="Search"
         />
       </div>
-      <div className="flex flex-col gap-3 ">
-        <div className="flex justify-between gap-3">
-          <Image
-            src="/user.jpg"
-            width={40}
-            height={40}
-            alt="user"
-            className="w-[40px] h-[40px] rounded-full"
-          />
-          <div className="flex-1 space-y-1 border-b pb-3 border-slate-600">
-            <div className="flex justify-between">
-              <h1 className="font-semibold">yanz20.ig</h1>
-              <button className="py-1 px-5  text-sm rounded-lg border border-slate-600">
-                Follow
-              </button>
-            </div>
-            <p className="text-sm">98 followers</p>
-          </div>
-        </div>
-        <div className="flex justify-between gap-3">
-          <Image
-            src="/user.jpg"
-            width={40}
-            height={40}
-            alt="user"
-            className="w-[40px] h-[40px] rounded-full"
-          />
-          <div className="flex-1 space-y-1 border-b pb-3 border-slate-600">
-            <div className="flex justify-between">
-              <h1 className="font-semibold">yanz20.ig</h1>
-              <button className="py-1 px-5  text-sm rounded-lg border border-slate-600">
-                Follow
-              </button>
-            </div>
-            <p className="text-sm">98 followers</p>
-          </div>
-        </div>
-        <div className="flex justify-between gap-3">
-          <Image
-            src="/user.jpg"
-            width={40}
-            height={40}
-            alt="user"
-            className="w-[40px] h-[40px] rounded-full"
-          />
-          <div className="flex-1 space-y-1 border-b pb-3 border-slate-600">
-            <div className="flex justify-between">
-              <h1 className="font-semibold">yanz20.ig</h1>
-              <button className="py-1 px-5  text-sm rounded-lg border border-slate-600">
-                Follow
-              </button>
-            </div>
-            <p className="text-sm">98 followers</p>
-          </div>
-        </div>
-      </div>
+      <Suggestion />
     </section>
   );
 };

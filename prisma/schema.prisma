@@ -15,7 +15,7 @@ model User {
  name String
  username String @unique
  password String
- image String @default("default.jpg")
+ image String @default("/default.jpg")
  idImage String @default("default")
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt 
@@ -23,4 +23,16 @@ model User {
  following User[] @relation("UserFollow", fields: [followingId], references: [id])
  followersId String[] @db.ObjectId
  followingId String[] @db.ObjectId
+ Threads  Thread[] 
+}
+
+model Thread {
+ id        String   @id @default(auto()) @map("_id") @db.ObjectId
+ description String
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ author User @relation(fields: [authorId], references: [id])
+ authorId String @db.ObjectId
+ images String?
+ idImage String?
 }

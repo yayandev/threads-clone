@@ -31,6 +31,14 @@ const UserProfile = ({ username }: { username: string }) => {
 
   const user = data?.data;
 
+  if (!user) {
+    return (
+      <section className="max-w-xl mx-auto pb-3 space-y-5 p-3 flex justify-center h-[50vh] items-center">
+        <h1>USER NOT FOUND!</h1>
+      </section>
+    );
+  }
+
   return (
     <section className="max-w-xl mx-auto pb-3 space-y-5 p-3">
       <div className="flex w-full justify-between items-center">
@@ -42,7 +50,7 @@ const UserProfile = ({ username }: { username: string }) => {
           width={80}
           height={80}
           alt="user"
-          src={`/${user?.image}`}
+          src={`${user?.image}`}
           className="w-[80px] h-[80px] rounded-full"
         />
       </div>
