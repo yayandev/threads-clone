@@ -30,7 +30,7 @@ const ModalPost = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    let formdata: any = new FormData();
+    let formdata = new FormData();
     formdata.append("description", values.description);
 
     if (values.file) {
