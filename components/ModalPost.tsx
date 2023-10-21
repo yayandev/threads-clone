@@ -6,6 +6,7 @@ import { useModalAddPost } from "@/context/modalContext";
 import { BsTrash } from "react-icons/bs";
 import Spinner from "./Spinner";
 import { useDataThreads } from "@/context/DataThreads";
+import axios from "axios";
 
 const ModalPost = () => {
   const { mutate } = useDataThreads();
@@ -29,22 +30,20 @@ const ModalPost = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    let formdata = new FormData();
+    let formdata: any = new FormData();
     formdata.append("description", values.description);
 
     if (values.file) {
       formdata.append("file", values.file);
     }
 
-    const res = await fetch("/api/threads", {
-      method: "POST",
-      body: formdata,
+    const res = await axios.post("/api/threads", formdata, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
 
-    const data = await res.json();
+    const data = res.data;
 
     if (data.success) {
       mutate();
