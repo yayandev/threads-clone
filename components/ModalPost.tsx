@@ -37,11 +37,7 @@ const ModalPost = () => {
       formdata.append("file", values.file);
     }
 
-    const res = await axios.post("/api/threads", formdata, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post("/api/threads", formdata);
 
     const data = res.data;
 
