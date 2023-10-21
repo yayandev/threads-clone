@@ -72,21 +72,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (file) {
-      const result = await uploadOnePhoto(formdata);
-
-      if (result.error) {
-        return NextResponse.json({
-          message: result.error,
-          success: false,
-        });
-      }
-
+    if (!file) {
       const newThreads = await db.thread.create({
         data: {
           description: description as string,
-          images: result?.photo?.secure_url as string,
-          idImage: result?.photo?.public_id as string,
           authorId: auth?.id as string,
         },
       });
@@ -98,9 +87,20 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const result = await uploadOnePhoto(formdata);
+
+    if (result.error) {
+      return NextResponse.json({
+        message: result.error,
+        success: false,
+      });
+    }
+
     const newThreads = await db.thread.create({
       data: {
         description: description as string,
+        images: result?.photo?.secure_url as string,
+        idImage: result?.photo?.public_id as string,
         authorId: auth?.id as string,
       },
     });

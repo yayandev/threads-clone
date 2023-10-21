@@ -31,6 +31,7 @@ const ModalPost = () => {
     setIsLoading(true);
     let formdata = new FormData();
     formdata.append("description", values.description);
+
     if (values.file) {
       formdata.append("file", values.file);
     }
@@ -38,6 +39,9 @@ const ModalPost = () => {
     const res = await fetch("/api/threads", {
       method: "POST",
       body: formdata,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     const data = await res.json();
